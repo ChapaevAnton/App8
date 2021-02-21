@@ -10,7 +10,6 @@ public class MyFile {
         File file1 = new File(directory, "file1.txt");
         File file2 = new File(directory, "file2.txt");
 
-
         System.out.println(directory.mkdir());
 
         try {

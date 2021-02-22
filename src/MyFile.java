@@ -55,6 +55,8 @@ public class MyFile {
 
         copyFile("d:\\MYDEV\\SKILLFACTORY\\TEST\\akira6.jpg", "D:\\MYDEV\\SKILLFACTORY\\TEST\\temp.tmp");
         copyFile(file1, file2);
+
+        appendFileString(file1);
     }
 
     //TODO 9.3
@@ -84,6 +86,20 @@ public class MyFile {
 
     public static void copyFile(File readFile, File writeFile) {
         copyFile(readFile.getAbsolutePath(), writeFile.getAbsolutePath());
+    }
+
+    //TODO 9.3.1
+    public static void appendFileString(File file) {
+        String str = "GIVE ME THE CODE, PLEASE\r\n";
+        byte[] buffer = str.getBytes();
+        try {
+            FileOutputStream writeStream = new FileOutputStream(file, true);
+            writeStream.write(buffer, 0, buffer.length);
+            writeStream.close();
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+        System.out.println("Append complete");
     }
 
     //TODO 9.2.1

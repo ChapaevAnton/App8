@@ -1,4 +1,6 @@
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,10 +55,43 @@ public class MyFile {
 
         getCountNumberFile(file1);
 
-        copyFile("d:\\MYDEV\\SKILLFACTORY\\TEST\\akira6.jpg", "D:\\MYDEV\\SKILLFACTORY\\TEST\\temp.tmp");
-        copyFile(file1, file2);
+        //copyFile("d:\\MYDEV\\SKILLFACTORY\\TEST\\akira6.jpg", "D:\\MYDEV\\SKILLFACTORY\\TEST\\temp.tmp");
+        //copyFile(file1, file2);
 
-        appendFileString(file1);
+        //appendFileString(file1);
+
+        copyTextFile(file1, file2);
+    }
+
+
+    //TODO 9.4
+    public static void copyTextFile(File readFile, File writeFile) {
+        System.out.println("Copy start...");
+        int bytes;
+        char[] buffer = new char[1024];
+        Charset utf8 = StandardCharsets.UTF_8;
+        Charset utf8Chars = Charset.forName("UTF-8");
+        Charset win1251 = Charset.forName("WINDOWS-1251");
+        try {
+            //TODO v1 Java v>=11
+            //Reader readStream = new FileReader(readFile, utf8);
+            //Writer writeStream = new FileWriter(writeFile, win1251);
+            //TODO v2 Java v<11
+            Reader readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
+            Writer writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251);
+
+            while ((bytes = readStream.read(buffer)) != -1) {
+
+                writeStream.write(buffer, 0, bytes);
+            }
+
+            readStream.close();
+            writeStream.close();
+
+        } catch (IOException err) {
+            err.printStackTrace();
+        }
+        System.out.println("Copy complete...");
     }
 
     //TODO 9.3

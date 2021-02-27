@@ -1,7 +1,11 @@
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,6 +65,23 @@ public class MyFile {
         //appendFileString(file1);
 
         copyTextFile(file1, file2);
+
+        readFileToList(file1);
+    }
+
+    //TODO 10.1
+
+    public static void readFileToList(File file) {
+        Scanner input = new Scanner(System.in);
+        try {
+            List<String> list = Files.readAllLines(file.toPath(), StandardCharsets.UTF_8);
+            System.out.println("Input number 1-" + list.size());
+            int index = input.nextInt();
+            System.out.println("Output:" + list.get(index - 1));
+        } catch (IndexOutOfBoundsException | IOException err) {
+            System.out.println(err.getMessage());
+        }
+
     }
 
 

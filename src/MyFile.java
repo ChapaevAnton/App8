@@ -113,7 +113,7 @@ public class MyFile {
             }
 
         } catch (FileNotFoundException read) {
-            System.out.println("Ошбика чтения/записи файла");
+            System.out.println("Обшика чтения/записи файла");
             System.out.println(read.getMessage());
             return false;
         } catch (NullPointerException nullError) {

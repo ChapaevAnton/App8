@@ -103,6 +103,7 @@ public class MyFile {
         //Writer writeStream = new FileWriter(writeFile, win1251);
         //TODO v2 Java v<11
 
+        // TODO: 27.02.2021 try-with-resources uses if Java v>7
         try (Reader readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
              Writer writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251)) {
 

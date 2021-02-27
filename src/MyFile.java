@@ -64,9 +64,9 @@ public class MyFile {
 
         //appendFileString(file1);
 
-        copyTextFile(file1, file2);
+        System.out.println(copyTextFile(file1, file2));
 
-        readFileToList(file1);
+        //readFileToList(file1);
     }
 
     //TODO 10.1
@@ -86,33 +86,74 @@ public class MyFile {
 
 
     //TODO 9.4
-    public static void copyTextFile(File readFile, File writeFile) {
+    // TODO: 27.02.2021 10.3
+    public static boolean copyTextFile(File readFile, File writeFile) {
         System.out.println("Copy start...");
         int bytes;
         char[] buffer = new char[1024];
         Charset utf8 = StandardCharsets.UTF_8;
+
         Charset utf8Chars = Charset.forName("UTF-8");
         Charset win1251 = Charset.forName("WINDOWS-1251");
-        try {
-            //TODO v1 Java v>=11
-            //Reader readStream = new FileReader(readFile, utf8);
-            //Writer writeStream = new FileWriter(writeFile, win1251);
-            //TODO v2 Java v<11
-            Reader readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
-            Writer writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251);
 
+
+        //TODO v1 Java v>=11
+        //Reader readStream = new FileReader(readFile, utf8);
+        //Writer writeStream = new FileWriter(writeFile, win1251);
+        //TODO v2 Java v<11
+        Reader readStream = null;
+        Writer writeStream = null;
+        try {
+            readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
+        } catch (FileNotFoundException read) {
+            System.out.println("Проблема чтения файла");
+            System.out.println(read.getMessage());
+            return false;
+        } catch (NullPointerException nullError) {
+            System.out.println(nullError.getMessage());
+            System.out.println("В метод copyTextFile передан null в качестве параметра readFile");
+            return false;
+        }
+
+
+        try {
+            writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251);
+        } catch (FileNotFoundException write) {
+            System.out.println("Проблема записи файла");
+            System.out.println(write.getMessage());
+            return false;
+        } catch (NullPointerException nullError) {
+            System.out.println(nullError.getMessage());
+            System.out.println("В метод copyTextFile передан null в качестве параметра writeFile");
+            return false;
+        }
+
+        try {
             while ((bytes = readStream.read(buffer)) != -1) {
 
                 writeStream.write(buffer, 0, bytes);
             }
+        } catch (IOException copyError) {
+            System.out.println(copyError.getMessage());
+            System.out.println("Ошибка при копировании..");
+            return false;
+        } finally {
 
-            readStream.close();
-            writeStream.close();
+            // TODO: 27.02.2021 for need Java v<7 closes the streams if java v>7 uses try() try-with-resources
+            try {
+                readStream.close();
+                writeStream.close();
+            } catch (IOException closeError) {
+                System.out.println(closeError.getMessage());
+                System.out.println("Ошибка при закрытии файла");
+                return false;
+            }
 
-        } catch (IOException err) {
-            err.printStackTrace();
         }
+
+
         System.out.println("Copy complete...");
+        return true;
     }
 
     //TODO 9.3

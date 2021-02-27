@@ -16,6 +16,7 @@ public class MyFile {
         File directory = new File("D:\\MYDEV\\SKILLFACTORY\\TEST\\");
         File file1 = new File(directory, "file1.txt");
         File file2 = new File(directory, "file2.txt");
+        File badFile = new File("bad", "bad");
 
         System.out.println(directory.mkdir());
 
@@ -64,7 +65,7 @@ public class MyFile {
 
         //appendFileString(file1);
 
-        System.out.println(copyTextFile(file1, file2));
+        System.out.println(copyTextFile(file1, badFile));
 
         //readFileToList(file1);
     }
@@ -101,56 +102,28 @@ public class MyFile {
         //Reader readStream = new FileReader(readFile, utf8);
         //Writer writeStream = new FileWriter(writeFile, win1251);
         //TODO v2 Java v<11
-        Reader readStream = null;
-        Writer writeStream = null;
-        try {
-            readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
-        } catch (FileNotFoundException read) {
-            System.out.println("Проблема чтения файла");
-            System.out.println(read.getMessage());
-            return false;
-        } catch (NullPointerException nullError) {
-            System.out.println(nullError.getMessage());
-            System.out.println("В метод copyTextFile передан null в качестве параметра readFile");
-            return false;
-        }
 
+        try (Reader readStream = new InputStreamReader(new FileInputStream(readFile), utf8);
+             Writer writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251)) {
 
-        try {
-            writeStream = new OutputStreamWriter(new FileOutputStream(writeFile), win1251);
-        } catch (FileNotFoundException write) {
-            System.out.println("Проблема записи файла");
-            System.out.println(write.getMessage());
-            return false;
-        } catch (NullPointerException nullError) {
-            System.out.println(nullError.getMessage());
-            System.out.println("В метод copyTextFile передан null в качестве параметра writeFile");
-            return false;
-        }
-
-        try {
             while ((bytes = readStream.read(buffer)) != -1) {
 
                 writeStream.write(buffer, 0, bytes);
             }
-        } catch (IOException copyError) {
-            System.out.println(copyError.getMessage());
-            System.out.println("Ошибка при копировании..");
+
+        } catch (FileNotFoundException read) {
+            System.out.println("Ошбика чтения/записи файла");
+            System.out.println(read.getMessage());
             return false;
-        } finally {
-
-            // TODO: 27.02.2021 for need Java v<7 closes the streams if java v>7 uses try() try-with-resources
-            try {
-                readStream.close();
-                writeStream.close();
-            } catch (IOException closeError) {
-                System.out.println(closeError.getMessage());
-                System.out.println("Ошибка при закрытии файла");
-                return false;
-            }
-
+        } catch (NullPointerException nullError) {
+            System.out.println(nullError.getMessage());
+            System.out.println("В метод copyTextFile передан null в качестве параметра readFile/writeFile");
+            return false;
+        } catch (IOException closeError) {
+            System.out.println(closeError.getMessage());
+            System.out.println("Ошибка процесса копирования/закрытия файла");
+            return false;
         }
-
 
         System.out.println("Copy complete...");
         return true;

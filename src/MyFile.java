@@ -65,9 +65,15 @@ public class MyFile {
 
         //appendFileString(file1);
 
-        System.out.println(copyTextFile(file1, badFile));
+        try {
+            copyTextFile(file1, badFile);
+        } catch (FileCopyException err) {
+            System.err.println(err.getMessage());
+        }
 
         //readFileToList(file1);
+
+        System.out.println("Program has finished OK!");
     }
 
     //TODO 10.1
@@ -88,7 +94,8 @@ public class MyFile {
 
     //TODO 9.4
     // TODO: 27.02.2021 10.3
-    public static boolean copyTextFile(File readFile, File writeFile) {
+    // TODO: 28.02.2021 10.4
+    public static void copyTextFile(File readFile, File writeFile) throws FileCopyException {
         System.out.println("Copy start...");
         int bytes;
         char[] buffer = new char[1024];
@@ -113,21 +120,14 @@ public class MyFile {
             }
 
         } catch (FileNotFoundException read) {
-            System.out.println("Обшика чтения/записи файла");
-            System.out.println(read.getMessage());
-            return false;
+            throw new FileCopyException("Ошибка чтения/записи файла:\n" + read.getMessage());
         } catch (NullPointerException nullError) {
-            System.out.println(nullError.getMessage());
-            System.out.println("В метод copyTextFile передан null в качестве параметра readFile/writeFile");
-            return false;
+            throw new FileCopyException("Передан null в качестве параметра:\n" + nullError.getMessage());
         } catch (IOException closeError) {
-            System.out.println(closeError.getMessage());
-            System.out.println("Ошибка процесса копирования/закрытия файла");
-            return false;
+            throw new FileCopyException("Ошибка процесса копирования файла:\n" + closeError.getMessage());
         }
-
         System.out.println("Copy complete...");
-        return true;
+
     }
 
     //TODO 9.3

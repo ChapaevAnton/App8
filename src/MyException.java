@@ -1,8 +1,44 @@
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 public class MyException {
+
+
+    //QUESTION: 28.02.2021 https://androidskillfactory.slack.com/archives/C018L96MEUV/p1614497051046600
+    public static String someMethod() {
+
+        String str = "test"; //проверка что catch срабатывает
+
+        try {
+            throw new NullPointerException();
+        } catch (NullPointerException e) {
+            System.out.println(e.getMessage());
+            return str = str + "catch";
+        } finally {
+            return str + "finally";
+        }
+    }
+
+    public static void readFromFile() throws IOException {
+        System.out.print("Reading line ");
+    }
+
     public static void main(String[] args) {
 
+        System.out.println(someMethod());
 
-// TODO: 28.02.2021 10.4
+
+// TODO: 28.02.2021 10.4.2
+        try {
+            readFromFile();
+        } catch (IOException /*| FileNotFoundException*/ e) {
+            e.printStackTrace();
+        }
+
+        System.out.print("Done");
+
+
+        // TODO: 28.02.2021 10.4
         int z = 10;
         int w = 5;
 
@@ -34,7 +70,7 @@ public class MyException {
 //        //NegativeArraySizeException
 //        int[] z = new int[-100];
 //
-//        //NullPointerException
+        //NullPointerException
 //        String str = null;
 //        str.length();
 //

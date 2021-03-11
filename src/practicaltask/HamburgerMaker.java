@@ -3,7 +3,7 @@ package practicaltask;
 // TODO: Класс создания гамбургеров
 class HamburgerMaker {
 
-    static Hamburger make(String[] recipe) {
+    static Hamburger make(String[] recipe) throws ArrayStoreException, NullPointerException, ArrayIndexOutOfBoundsException {
 
         // TODO: обработайте исключение
         if (recipe.length > 4) throw new ArrayStoreException();

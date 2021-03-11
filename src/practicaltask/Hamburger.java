@@ -22,7 +22,7 @@ class Hamburger extends Food {
 
     //процесс разгорева гамбургера
     @Override
-    public void reheat(int timeSeconds) {
+    public void reheat(int timeSeconds) throws IllegalArgumentException, OvenException {
         this.hot = true;
 
         // TODO: обработайте исключение

@@ -5,7 +5,7 @@ package practicaltask;
 class Oven {
 
 
-    static void reheatFood(Food food, int timeSecond) {
+    static void reheatFood(Food food, int timeSecond) throws OvenException, ArithmeticException {
         System.out.println("Разогрев начат...тик так тик так");
         // TODO: обработайте исключение
         if (timeSecond > 150) throw new ArithmeticException();

@@ -3,10 +3,11 @@ package practicaltask;
 
 class Hamburger extends Food {
 
-    private String bun;
-    private String meat;
-    private String greens;
-    private String sauce;
+    //ингредиенты
+    private String bun; //булочка
+    private String meat; //мясо
+    private String greens;//зелень
+    private String sauce;//соус
 
 
     Hamburger(String bun, String meat, String greens, String sauce) {

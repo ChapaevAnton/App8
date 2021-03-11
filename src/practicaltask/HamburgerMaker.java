@@ -1,4 +1,5 @@
 package practicaltask;
+
 // TODO: Класс создания гамбургеров
 class HamburgerMaker {
 

@@ -32,15 +32,16 @@ class Hamburger extends Food {
 
             try {
                 Thread.sleep(100);
-
-                temperature++;
-                if (temperature == 100)
-                    // TODO: Доработайте и сгенерируйте свое исключение если температур достигла критической отметки
-                    throw new OvenException();
-                if (temperature > 0) hot = true;
-            } catch (InterruptedException | OvenException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            temperature++;
+            if (temperature == 100)
+                // TODO: Доработайте и сгенерируйте свое исключение если температур достигла критической отметки
+                throw new OvenException();
+            if (temperature > 0) hot = true;
+
         }
     }
 

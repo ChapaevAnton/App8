@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args) {
 
 // TODO: Задание - не изменяя состав рецептов, параметры методов создания и разогрева гамбургеров.
+//  Доработайте исключение OvenException() в классе OvenException - убрав ошибку компиляции...
 //  Сделайте процесс работоспособным, используя в Main конструкции try catch finally
-//  Доработайте исключение OvenException() в классе Hamburger
 //  Постарайтесь выполнить практическое задание не прибегаю к координальному изменению классов:
 //  Hamburger, HamburgerMaker, Oven, Food.
         //рецепты
@@ -28,7 +28,7 @@ public class Main {
         Oven.reheatFood(hamburger, 80);
         Oven.reheatFood(hamburger1, 100);
         Oven.reheatFood(hamburger2, 150);
-        Oven.reheatFood(hamburger3, 80);
+        Oven.reheatFood(hamburger3, 170);
         Oven.reheatFood(hamburger4, -200);
 
 
